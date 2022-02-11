@@ -7,4 +7,7 @@ Im cool
 
 jeg kan godt lide katte
 
-adsadsa
+adsads
+
+
+linea er sød
