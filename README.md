@@ -1,13 +1,3 @@
 # hello-world
-repository
+Random coding projects for fun
 
-Hello my name is Anders
-
-Im cool
-
-jeg kan godt lide katte
-
-adsads
-
-
-linea er sød
