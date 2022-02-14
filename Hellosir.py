@@ -10,3 +10,5 @@ def function(x):
 
 plt.plot(x, function(x))
 plt.show()
+
+ajdhsa
