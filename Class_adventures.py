@@ -32,4 +32,4 @@ pot = s.pot_run(x, y)
 #HERE I CALL ANOTHER FUNCTION WITHIN THE CLASS EASILY
 kin = s.kin_run(x, y)
 
-print(pot[0], kin[0])
+print(pot, kin)
