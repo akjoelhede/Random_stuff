@@ -3,9 +3,8 @@ from threading import local
 import time
 import os
 import sys
-from pyfiglet import Figlet
 
-custom_fig = Figlet(font='doom')
+#custom_fig = Figlet(font='doom')
 
 ##########################Inventory##########################
 weapons = False
@@ -323,12 +322,14 @@ def town():
 
 def Rules_and_Mechanics():
 	choice = ["Begin"]
-	print(custom_fig.renderText("Rules"))
+	#print(custom_fig.renderText("Rules"))
+	typewriter(["Rules"], 0.1)
 	time.sleep(1)
 	typewriter(["If you have chosen a path and want to go back but can't, you have to restart.",
 	 "Every decision you make have an impact on how the game plays out, for good or for bad"], 0.1)
 
-	print(custom_fig.renderText("Mechanics"))
+	#print(custom_fig.renderText("Mechanics"))
+	typewriter(["Mechanics"], 0.1)
 	time.sleep(1)
 	typewriter(["As of this version there is a health mechanic, you start with 20 HP and loose the game if this number reach zero.",
 	"Health can be regained with potions, food or sleep in towns",
@@ -373,7 +374,8 @@ def introscene():
 
 if __name__ == "__main__":
 	while True:
-		print(custom_fig.renderText("WELCOME TO EVER DARK"))
+		#print(custom_fig.renderText("WELCOME TO EVER DARK"))
+		typewriter(["WELCOME TO EVER DARK"], 0.1)
 		typewriter(["A choice based story game"], 0.1)
 		time.sleep(1)
 		typewriter(["Venture deep into the marschlands or the deep mines below to the mountains"], 0.1)
