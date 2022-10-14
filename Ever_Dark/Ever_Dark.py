@@ -7,9 +7,9 @@ import sys
 #custom_fig = Figlet(font='doom')
 
 ##########################Inventory##########################
-weapons = False
+weapon = False
 coin = 10
-potions = False
+potion = False
 
 ##########################stats##############################
 Health = 20
@@ -42,7 +42,7 @@ def back():
 	global Health
 
 	directions = ["Town", "Marsch", "Shore"]
-	actions = ["Inspect Knife", "Check pockets", "Whissle", "Choose direction", "Inventory", "Stats"]
+	actions = ["Inspect Knife", "Check pockets", "Whistle", "Choose direction", "Inventory", "Stats"]
 	choice = ["directions", "actions"]
 
 	typewriter(["You turn back, but all of a sudden the world begins spinning around you. You open your eyes and stare at the crossroads once again"], 0.1)
@@ -81,7 +81,7 @@ def back():
 				if userinput == "1":
 					typewriter(["You notice strange carvings on the knife, they look old and not of this land."], 0.1)
 				elif userinput == "2":
-					if potions == False:
+					if potion == False:
 						typewriter(["You a vial of mysterious fluid. Maybe it can be helpful along the way?."], 0.1)
 						potion = True
 					else:
@@ -93,12 +93,14 @@ def back():
 					if Sanity < 100:
 						typewriter(["You gained 5 sanity points"], 0.1)
 						Sanity += 5
+						if Sanity > 100:
+							Sanity = 100
 					else:
 						typewriter(["You cannot gain more sanity from this memory"], 0.1)
 				elif userinput == "4":
 					introscene()
 				elif userinput == "5":
-					typewriter([f"You have weapons = {weapons}, and {coin} gold coins and {potions} potions"], 0.1)
+					typewriter([f"You have weapon = {weapon}, and {coin} gold coins and potion = {potion}"], 0.1)
 				elif userinput == "6":
 					if Health or Sanity > 10:
 						typewriter([f'You have {Health} HP and feel good.'], 0.1)
@@ -214,7 +216,7 @@ def lighthouse():
 		print(directions)
 		userinput = input()
 		if userinput == "1":
-			inside_lighhouse()
+			inside_lighthouse()
 		if userinput == "2":
 			lighthouse_basement()
 
@@ -242,7 +244,7 @@ def inside_lighthouse():
 				inside_lighthouse()
 			else: 
 				typewriter(["You manage to bolt out of the door without a scratch"], 0.1)
-				inside_lighthouse()
+				shore()
 		if userinput == "2":
 			lighthouse_basement()
 
