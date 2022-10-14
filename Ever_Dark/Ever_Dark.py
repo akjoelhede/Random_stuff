@@ -1,8 +1,10 @@
-from lib2to3.pytree import type_repr
-from threading import local
 import time
 import os
 import sys
+#import winsound
+
+
+#winsound.PlaySound(".\\music\\background.wav",  winsound.SND_ALIAS | winsound.SND_ASYNC +winsound.SND_LOOP)
 
 #custom_fig = Figlet(font='doom')
 
