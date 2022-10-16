@@ -1,40 +1,22 @@
 import time
-import os
-import sys
+from graphics import *
+import json
 #import winsound
+from pygame import mixer
 
 
 #winsound.PlaySound(".\\music\\background.wav",  winsound.SND_ALIAS | winsound.SND_ASYNC +winsound.SND_LOOP)
-
 #custom_fig = Figlet(font='doom')
 
 ##########################Inventory##########################
 weapon = False
 coin = 10
 potion = False
-
-##########################stats##############################
+boat_tools = False
+lighthouse_werewolf = True
 Health = 20
 Sanity = 100
-
 #############################################################
-
-def typewriter(text, delay):
-	for row in text:
-		for char in row:
-			sys.stdout.write(char)
-			sys.stdout.flush()
-			time.sleep(delay)
-		print()
-		time.sleep(1)
-		os.system('clear')
-
-def artdisplay(text, delay):
-	for row in text:
-		print(row)
-		time.sleep(delay)
-		
-
 
 def back():
 	global weapon
@@ -115,7 +97,7 @@ def back():
 
 		else:
 			print("Please enter a valid option")
- 
+
 ##########################EAST###################################
 
 def marsch():
@@ -139,7 +121,7 @@ def marsch():
 ##########################WEST###################################
 
 def shore():
-	directions = ["Lighthouse", "Beach", "Boat", "Town"]
+	directions = ["Beach", "Town"]
 	typewriter(["Where would you like to go?"], 0.1)
 
 	userinput = ""
@@ -148,12 +130,8 @@ def shore():
 		print(directions)
 		userinput = input()
 		if userinput == "1":
-			lighthouse()
-		elif userinput == "2":
 			beach()
-		elif userinput == "3":
-			boat()
-		elif userinput == "4":
+		elif userinput == "2":
 			town()
 		else:
 			print("Please enter a valid option")
@@ -163,52 +141,7 @@ def lighthouse():
 	directions = ["Inside", "To the basement"]
 	typewriter(["Soon after leaving the shore, you see a lighthouse towering in the distance "], 0.1)
 
-	artdisplay(
-	["┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼.(▓)",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼███",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼███████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼█████████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼█████████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼███████████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼▒░░▒▒░░▒░░▒",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼▒░░▒░░▒▒░░▒",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼▒░░▒▒░░▒░░▒",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼███████████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼█▒█████▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼█▒█████▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼┼█▒█████▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼███▒▒▒▒▒███",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼███▒▒▒▒▒███",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼███▒▒▒▒▒███",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼███▒▒▒▒▒███",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼███▒▒▒▒▒███",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼█▒▒█████▒▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼█▒▒█████▒▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼█▒▒█████▒▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼█▒▒█████▒▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼┼█▒▒█████▒▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼████▒▒▒▒▒████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼████▒▒▒▒▒████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼████▒▒▒▒▒████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼████▒▒▒▒▒████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼████▒▒▒▒▒████",
-	"┼┼┼┼┼┼┼┼┼┼┼┼█▒▒▒█████▒▒▒█",
-	"┼┼┼┼┼┼┼┼┼┼┼┼█▒▒▒█████▒▒▒█",
-	"┼┼┼┼┼┼┼┼┼█┼┼█▒▒▒█████▒▒▒█",
-	"┼┼┼██████▒█████████████████",
-	"┼┼┼█████▒▒▒████████████████",
-	"┼┼┼████▒▒▒▒▒███████████████",
-	"┼┼┼███▒▒▒▒▒▒▒██████████████",
-	"┼┼┼██▒▒▒▒▒▒▒▒▒█████████████",
-	"┼┼┼█▒▒▒▒███▒▒▒▒█▒▒▒▒▒▒▒▒▒▒█",
-	"┼┼┼██▒▒█████▒▒██▒▒▒████▒▒██",
-	"┼┼┼█▒▒▒█████▒▒▒█▒▒▒█▒▒█▒▒▒█",
-	"┼┼┼██▒▒█████▒▒██▒▒▒████▒▒██",
-	"┼┼┼█▒▒▒█████▒▒▒█▒▒▒▒▒▒▒▒▒▒█",
-	"┼┼┼████████████████████████"
-	],0.1)
+	artdisplay(lighthouse_art, 0.1)
 
 	typewriter(["Where would you like to go?"], 0.1)
 
@@ -218,11 +151,16 @@ def lighthouse():
 		print(directions)
 		userinput = input()
 		if userinput == "1":
-			inside_lighthouse()
-		if userinput == "2":
+			if lighthouse_werewolf == False:
+				inside_lighthouse()
+			else:
+				inside_lighthouse_werewolf()
+		elif userinput == "2":
 			lighthouse_basement()
+		else:
+			print("Please enter a valid option")
 
-def inside_lighthouse():
+def inside_lighthouse_werewolf():
 
 	global Health
 	global Sanity
@@ -245,58 +183,119 @@ def inside_lighthouse():
 				Sanity -= 5
 				inside_lighthouse()
 			else: 
-				typewriter(["You manage to bolt out of the door without a scratch"], 0.1)
-				shore()
-		if userinput == "2":
+				typewriter(["The werewolf mauls you and begin feasting on your flesh!",
+				"Your story ends here traveler"], 0.1)
+				typewriter(["GAME OVER!"], 0.1)
+				quit()
+		elif userinput == "2":
 			lighthouse_basement()
+		else:
+			print("Please enter a valid option")
+
+def inside_lighthouse():
+
+	global boat_tools
+
+	directions = ["Beach", "Shore"]
+	typewriter(["You now stand in the middle of a large room of stone and wood",
+	"You manage to find a tool belt with all the tools you need to fix the boat"], 0.1)
+	
+	boat_tools = True
+
+	typewriter(["Where will you go?"], 0.1)
+
+	userinput = ""
+
+	while userinput not in directions:
+		print(directions)
+		userinput = input()
+		if userinput == "1":
+			beach()
+		elif userinput == "2":
+			shore()
+		else:
+			print("Please enter a valid option")
 
 def lighthouse_basement():
-	typewriter(["You make your way through the door to the lighthouse "], 0.1)
+
+	global weapon
+
+	typewriter(["You use walk around the lighthouse to find a small door in the side of the building. ",
+	"The rusty hinges scream in agony as you pull the door open and walk down into the cellar"], 0.1)
+
+	
 
 
-def boat():
+
+def boat_broken():
+	directions = ["Lighthouse", "Beach"]
 
 	typewriter(["A boat can take you anywhere, but this one seems to be broken....."], 0.1)
 	
-	artdisplay(
-	[
-	"_____________¶¶¶¶¶¶¶¶¶¶¶¶¶",
-	"_____________¶¶___________¶¶",
-	"______________¶____________¶",
-	"______________¶_____________¶",
-	"_______________¶____________¶",
-	"_______________¶____________¶_¶¶",
-	"_______________¶__¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶",
-	"_____¶¶¶¶¶¶¶¶¶¶¶¶¶¶______________¶",
-	"_____¶____________¶¶_____________¶¶____¶",
-	"_____¶¶____________¶_____¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶",
-	"______¶______¶¶¶¶¶¶¶¶¶¶¶¶¶¶______________¶",
-	"______¶¶_____¶¶___________¶______________¶¶",
-	"_______¶______¶____________¶______________¶",
-	"_______¶______¶¶___________¶_____________¶¶",
-	"_______¶_______¶___________¶_____________¶¶",
-	"______¶¶_______¶___________¶¶____________¶"
-	"______¶¶¶¶¶¶¶¶¶¶¶__________¶¶___________¶¶",
-	"___________¶_¶_¶¶________¶¶¶_____¶¶¶¶¶¶¶¶_____¶¶¶",
-	"___________¶_¶_¶¶¶¶¶¶¶¶¶¶¶_¶¶¶¶¶¶¶_______¶¶¶¶¶__¶¶",
-	"¶¶¶¶¶¶_____¶_¶______¶¶_¶_______¶_¶¶¶¶¶¶¶¶¶___¶¶¶¶¶",
-	"¶¶___¶¶¶¶¶¶¶¶¶______¶¶_¶____¶¶¶¶¶¶¶________¶¶",
-	"__¶¶________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶____¶¶______¶",
-	"____¶____________________________¶¶_¶____¶",
-	"_____¶_____¶¶¶_____¶¶_____¶¶¶_____¶¶¶___¶¶",
-	"______¶___¶¶_¶¶___¶¶_¶____¶_¶¶__________¶",
-	"______¶¶____¶¶_____¶¶¶_____¶¶__________¶¶",
-	"_______¶¶_____________________________¶¶",
-	"________¶¶___________________________¶¶",
-	"_________¶¶________________________¶¶¶",
-	"___________¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶¶"
-	], 0.01)
+	artdisplay(boat_broken_art, 0.1)
 
-	typewriter(["Maybe theres is someone in the lighthouse?"], 0.1)
+	typewriter(["Maybe theres is someone with the tools to fix it in the lighthouse?"], 0.1)
 
+	userinput = ""
+
+	while userinput not in directions:
+		print(directions)
+		userinput = input()
+		if userinput == "1":
+			lighthouse()
+		elif userinput == "2":
+			beach()
+		else:
+			print("Please enter a valid option")
+
+def boat_fixed():
+	directions = ["Set sail", "Go back"]
+
+	typewriter(["Using your tools you manage to fix up the boat, ready for adventure"], 0.1)
+	
+	artdisplay(boat_art, 0.1)
+
+	typewriter(["What might be on the other side of the merciless sea?"], 0.1)
+
+	userinput = ""
+
+	while userinput not in directions:
+		print(directions)
+		userinput = input()
+		if userinput == "1":
+			izetun()
+		elif userinput == "2":
+			beach()
+		else:
+			print("Please enter a valid option")
+
+def beach():
+
+	global boat_tools
+	
+	directions = ["Inpect boat", "Go Back"]
+
+	typewriter(["You make your way onto the beach and you feel your boots sink into the sand and the smell of salt on the wind."], 0.1)
+	
+	typewriter(["What would you like to do ?"], 0.1)
+
+	userinput = ""
+
+	while userinput not in directions:
+		print(directions)
+		userinput = input()
+		if userinput == "1":
+			if boat_tools == True:
+				boat_fixed()
+			else:
+				boat_broken()
+		elif userinput == "2":
+			shore()
+		else:
+			print("Please enter a valid option")
+			
 
 ##########################NORTH###################################
-
 
 def town():
 	directions = ["Square", "Blacksmith", "Tavern", "Wathctower", "Shore", "Marsch"]
@@ -322,6 +321,7 @@ def town():
 			print("Please enter a valid option")
 
 
+
 ########################RULES AND MECHANICS############################
 
 def Rules_and_Mechanics():
@@ -330,7 +330,7 @@ def Rules_and_Mechanics():
 	typewriter(["Rules"], 0.1)
 	time.sleep(1)
 	typewriter(["If you have chosen a path and want to go back but can't, you have to restart.",
-	 "Every decision you make have an impact on how the game plays out, for good or for bad"], 0.1)
+	"Every decision you make have an impact on how the game plays out, for good or for bad"], 0.1)
 
 	#print(custom_fig.renderText("Mechanics"))
 	typewriter(["Mechanics"], 0.1)
@@ -355,6 +355,9 @@ def Rules_and_Mechanics():
 
 
 def introscene():
+	mixer.init()
+	mixer.music.load("Ever_Dark/music/background.wav")
+	mixer.music.play(loops = -1)
 	directions = ["Town", "Marsch", "Shore", "Back"]
 	typewriter(["After days of wandering around the roads of Kalar'hyn with a feeling of something missing from your mind, you find yourself at a crossroads"], 0.1)
 	typewriter(["An old rotten sign roughly indicates where each path leads you"], 0.1)
@@ -375,6 +378,31 @@ def introscene():
 		else:
 			print("Please enter a valid option")
 
+def main_menu():
+
+	artdisplay(logo, 0.1)
+
+	print("\n")
+
+	actions = ["New game", "Rules and mechanics"]
+
+	userinput = ""
+
+	while userinput not in actions:
+		mixer.init()
+		mixer.music.load("Ever_Dark/music/intro.wav")
+		mixer.music.play(loops = -1, fade_ms=2)
+
+		print(actions)
+		userinput = input()
+		if userinput == "1":
+			introscene()
+		elif userinput == "2":
+			marsch()
+		elif userinput == "3":
+			Rules_and_Mechanics()
+		else:
+			print("Please enter a valid option")
 
 if __name__ == "__main__":
 	while True:
@@ -382,22 +410,6 @@ if __name__ == "__main__":
 		typewriter(["WELCOME TO EVER DARK"], 0.1)
 		typewriter(["A choice based story game"], 0.1)
 		time.sleep(1)
-		typewriter(["Venture deep into the marschlands or the deep mines below to the mountains"], 0.1)
-		time.sleep(1)
-		typewriter(["The choice is yours, but remember sometimes you can't change the past"], 0.1)
-		time.sleep(1)
 		typewriter(["Good luck traveler"], 0.1)
 
-		choice = ["Rules and Mechanics","Skip"]
-
-		userinput = ""
-
-		while userinput not in choice:
-			print(choice)
-			userinput = input()
-			if userinput == "1":
-				Rules_and_Mechanics()
-			elif userinput == "2":
-				introscene()
-			else:
-				typewriter("Please enter a valid option", 0.1)
+		main_menu()
