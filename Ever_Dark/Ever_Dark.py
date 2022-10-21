@@ -220,10 +220,10 @@ def lighthouse_basement():
 
 	global weapon
 
-	typewriter(["You use walk around the lighthouse to find a small door in the side of the building. ",
+	typewriter(["You walk around the lighthouse to find a small door in the side of the building. ",
 	"The rusty hinges scream in agony as you pull the door open and walk down into the cellar"], 0.1)
 
-	
+	typewriter(["The moldy air burns in your nose and "], 0.1)
 
 
 
