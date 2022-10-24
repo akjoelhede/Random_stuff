@@ -32,7 +32,7 @@ y = 0
 
 
 mixer.init()
-mixer.music.load("EverDark_RPG/music/background.wav")
+mixer.music.load("music/background.wav")
 mixer.music.play(loops = -1, fade_ms=2)
 
 map =  [["plains",	"plains",	"plains",	"plains",	"forest",	"mountain",	"cave"],
@@ -215,12 +215,12 @@ def battle():
 	if not boss:
 		enemy = random.choice(e_list)
 		mixer.init()
-		mixer.music.load("EverDark_RPG/music/bloodpit.wav")
+		mixer.music.load("music/bloodpit.wav")
 		mixer.music.play(loops = -1, fade_ms=2)
 	else:
 		enemy = "Dragon"
 		mixer.init()
-		mixer.music.load("EverDark_RPG/music/boss.wav")
+		mixer.music.load("music/boss.wav")
 		mixer.music.play(loops = -1, fade_ms=2)
 
 	hp = mobs[enemy]["hp"]
@@ -316,7 +316,7 @@ def battle():
 			run = False
 			print("GAME OVER")
 			mixer.init()
-			mixer.music.load("EverDark_RPG/music/music_rip.wav")
+			mixer.music.load("music/music_rip.wav")
 			mixer.music.play(loops = -1, fade_ms=2)
 			input("> ")
 		
@@ -340,7 +340,7 @@ def battle():
 				draw()
 				print("Congratulations, you have finished the game!")
 				mixer.init()
-				mixer.music.load("EverDark_RPG/music/ending.wav")
+				mixer.music.load("music/ending.wav")
 				mixer.music.play(loops = -1, fade_ms=2)
 				boss = False
 				play = False
@@ -491,7 +491,7 @@ while run:
 		draw()
 
 		mixer.init()
-		mixer.music.load("EverDark_RPG/music/intro.wav")
+		mixer.music.load("music/intro.wav")
 		mixer.music.play(loops = -1, fade_ms=2)
 
 		if rules:
