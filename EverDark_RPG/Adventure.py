@@ -14,6 +14,9 @@ buy = False
 speak = False
 boss = False
 
+EXP = 0
+EXPMAX = 20
+LVL = 0
 HP = 50
 MANA = 100
 MANAMAX = MANA
@@ -27,11 +30,23 @@ gold = 0
 x = 0
 y = 0
 
+
+mixer.init()
+mixer.music.load("EverDark_RPG/music/background.wav")
+mixer.music.play(loops = -1, fade_ms=2)
+
 map =  [["plains",	"plains",	"plains",	"plains",	"forest",	"mountain",	"cave"],
 	["forest",	"forest",	"forest",	"forest",	"forest",	"hills",	"mountain"],
 	["forest",	"fields",	"bridge",	"plains",	"hills",	"forest",	"hills"],
 	["plains",	"shop",		"town",		"major",	"plains",	"hills",	"mountain"],
 	["plains",	"fields",	"fields",	"plains",	"hills",	"mountain",	"mountain"]]
+
+map1 = [["-", "-", "-", "-", "-", "-", "-"], 
+	["-", "-", "-", "-", "-", "-", "-"],
+	["-", "-", "-", "-", "-", "-", "-"],
+	["-", "-", "-", "-", "-", "-", "-"],
+	["-", "-", "-", "-", "-", "-", "-"]]
+
 
 y_len = len(map)-1
 x_len = len(map[0])-1
@@ -78,41 +93,49 @@ mobs = {
 	"Goblin": {
 		"hp": 15,
 		"at": 3,
-		"go": 8
+		"go": 8,
+		"xp": 5
 	},
 	"Orc": {
 		"hp": 35,
 		"at": 5,
-		"go": 18
+		"go": 18,
+		"xp": 10
 	},
 	"Slime": {
 		"hp": 15,
 		"at": 2,
-		"go": 12
+		"go": 12,
+		"xp": 7
 	},
 	"Zombie": {
 		"hp": 20,
 		"at": 4,
-		"go": 5
+		"go": 5,
+		"xp": 6
 	},
 	"Vampire": {
 		"hp": 15,
 		"at": 2,
-		"go": 12
+		"go": 12,
+		"xp": 8
 	},
 	"Troll": {
 		"hp": 30,
 		"at": 6,
-		"go": 40
+		"go": 40,
+		"xp": 15
 	},
 	"Dragon": {
 		"hp": 100,
 		"at": 8,
-		"go": 100
+		"go": 100,
+		"xp": 50
 	}
 
 }
 
+#######AESTETICS##########
 def clear():
 	os.system("clear")
 
@@ -123,11 +146,15 @@ def artdisplay(text, delay):
 	for row in text:
 		print(row)
 		time.sleep(delay)
+##########################
 
 def save():
 	list = [
 
 		name,
+		str(EXP),
+		str(EXPMAX),
+		str(LVL),
 		str(HP),
 		str(ATK),
 		str(MANA),
@@ -146,6 +173,7 @@ def save():
 		f.write(item + "\n")
 	f.close()
 
+######GAINED PLAYER STATS############
 def heal(amount):
 	global HP
 	if HP + amount < HPMAX:
@@ -162,9 +190,27 @@ def mana_regen(amount):
 		MANA = MANAMAX
 	print(name + "'s mana refilled to " + str(MANA) + "!")
 
+def exp_gain(amount):
+	global EXP, LVL, ATK, MTK, EXPMAX
+
+	if EXP + amount < EXPMAX:
+		EXP += amount
+		print("You have gained " + str(amount) + " exp!")
+		
+	else:
+		LVL += 1
+		ATK += 4
+		MTK += 2
+		EXP = 0
+		EXPMAX += 20 
+		print("You have leveled up! and gained +4ATK, +2MD")
+
+##########################
+
+#MAIN GAME FIGHT LOOP
 def battle():
 
-	global fight, play, run, HP, MANA, pot, elix, manapot, gold, boss
+	global fight, play, run, HP, MANA, pot, elix, manapot, gold, boss, EXP
 
 	if not boss:
 		enemy = random.choice(e_list)
@@ -181,6 +227,7 @@ def battle():
 	hpmax = hp
 	atk = mobs[enemy]["at"]
 	g = mobs[enemy]["go"]
+	exp = mobs[enemy]["xp"]
 
 	while fight:
 		clear()
@@ -278,13 +325,15 @@ def battle():
 			draw()
 			fight = False
 			gold += g
-			print("You have found " + str(g) + " gold!")
+			exp_gain(exp)
+			print(f"You have found " + str(g) + " gold!")
 			if random.randint(0,100) < 30:
 				pot += 1
 				print("You have found a potion!")
 			if random.randint(0,100) < 10:
 				elix += 1
 				print("You have found an elixir!")
+
 			input("> ")
 
 			if enemy == "Dragon":
@@ -299,6 +348,7 @@ def battle():
 			input("> ")
 			clear()
 
+#########SPECIAL TILES ON MAP##########
 def shop():
 	global buy, gold, pot, manapot, elix, ATK, MTK
 
@@ -384,12 +434,14 @@ def major():
 		draw()
 		print("Hello there " + name + "!")
 
-		if ATK < 10:
+		if LVL < 3 and ATK < 10:
 			print("You are not strong anough to face the dragon, keep practicing and come back later")
 			key = False
 		
 		else:
-			print("You might want to take on that dragon now!, take this key but be carefull with the beast")
+			print("You might want to take on that dragon now!, i have marked where the dragons cave is on your map",
+			"take this key but be carefull with the beast, good luck")
+			map1[0][6] = "C"
 			key = True
 
 		draw()
@@ -423,7 +475,9 @@ def cave():
 				battle()
 		elif choice == "2":
 			boss = False
+##########################
 
+#MAIN GAME LOOP 
 while run:
 
 	while menu:
@@ -457,18 +511,21 @@ while run:
 			try:
 				f = open("load.txt", "r")
 				load_list = f.readlines()
-				if len(load_list) == 11:
+				if len(load_list) == 14:
 					name = load_list[0][:-1]
-					HP = int(load_list[1][:-1])
-					ATK = int(load_list[2][:-1])
-					MANA = int(load_list[3][:-1])
-					pot = int(load_list[4][:-1])
-					elix = int(load_list[5][:-1])
-					manapot = int(load_list[6][:-1])
-					gold = int(load_list[7][:-1])
-					x = int(load_list[8][:-1])
-					y = int(load_list[9][:-1])
-					key = bool(load_list[10][:-1])
+					EXP = int(load_list[1][:-1])
+					EXPMAX = int(load_list[2][:-1])
+					LVL = int(load_list[3][:-1])
+					HP = int(load_list[4][:-1])
+					ATK = int(load_list[5][:-1])
+					MANA = int(load_list[6][:-1])
+					pot = int(load_list[7][:-1])
+					elix = int(load_list[8][:-1])
+					manapot = int(load_list[9][:-1])
+					gold = int(load_list[10][:-1])
+					x = int(load_list[11][:-1])
+					y = int(load_list[12][:-1])
+					key = bool(load_list[13][:-1])
 					clear()
 					print("Welcome back, " + name + "!")
 					input("> ")
@@ -503,9 +560,12 @@ while run:
 			print("LOCATION: " + biom[map[y][x]]["t"])
 			draw()
 			print("NAME: " + colored(name, 'green'))
+			print("Lvl: " + str(LVL))
+			print("EXP: " + str(EXP) + "/" + str(EXPMAX))
 			print("HP: " + colored(str(HP), 'red') + "/" + colored(str(HPMAX), 'red'))
 			print("MANA: " + colored(str(MANA), 'blue') + "/" + colored(str(MANAMAX), 'blue'))
 			print("ATK: " + str(ATK))
+			print("MD: " + str(MTK))
 			print("POTIONS: " + str(pot))
 			print("ELIXIRS: " + str(elix))
 			print("MANA POTIONS: " + str(manapot))
@@ -517,10 +577,6 @@ while run:
 			print("2 - EAST")
 			print("3 - SOUTH")
 			print("4 - WEST")
-
-			mixer.init()
-			mixer.music.load("EverDark_RPG/music/background.wav")
-			mixer.music.play(loops = -1, fade_ms=2)
 			
 			if pot > 0:
 				print("5 - USE POTION (30HP)")
@@ -533,13 +589,28 @@ while run:
 
 			draw()
 
+			map1[y][x] = "P"
+			map1[2][2] = "B"
+			map1[3][2] = "T"
+			map1[3][3] = "M"
+			map1[3][1] = "S"
+		
+			print(map1[0], "\n")
+			print(map1[1], "\n")
+			print(map1[2], "\n")
+			print(map1[3], "\n")
+			print(map1[4])
+
+			draw()
 			dest = input("# ")
 
 			if dest == "0":
 				play = False
 				menu = True
 				save()
+				play = False
 			elif dest == "1":
+				map1[y][x] = "-"
 				if y > 0:
 					y -= 1
 					standing = False
@@ -547,6 +618,7 @@ while run:
 					y = y_len
 					standing = False
 			elif dest == "2":
+				map1[y][x] = "-"
 				if x < x_len:
 					x +=1
 					standing = False
@@ -554,6 +626,7 @@ while run:
 					x = 0
 					standing = False
 			elif dest == "3":
+				map1[y][x] = "-"
 				if y < y_len:
 					y += 1
 					standing = False
@@ -561,6 +634,7 @@ while run:
 					y = 0
 					standing = False
 			elif dest == "4":
+				map1[y][x] = "-"
 				if x > 0:
 					x -=1
 					standing = False
