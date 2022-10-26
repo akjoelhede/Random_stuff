@@ -319,6 +319,7 @@ def battle():
 			mixer.music.load("music/music_rip.wav")
 			mixer.music.play(loops = -1, fade_ms=2)
 			input("> ")
+			quit()
 		
 		if hp <=0:
 			print(name + " defeated " + enemy + "!")
@@ -333,6 +334,10 @@ def battle():
 			if random.randint(0,100) < 10:
 				elix += 1
 				print("You have found an elixir!")
+
+			mixer.init()
+			mixer.music.load("music/background.wav")
+			mixer.music.play(loops = -1, fade_ms=2)
 
 			input("> ")
 
@@ -395,7 +400,7 @@ def shop():
 		elif choice == "3": 
 			if gold >= 12:
 				manapot += 1
-				gold -= 8
+				gold -= 12
 				print("You have bought a mana potion")
 
 			else:
@@ -417,7 +422,7 @@ def shop():
 				if gold >= 20:
 					MTK += 2
 					gold -= 20
-					print("You have studied the arts of the arcane magic")
+					print("You have studied the arts of the arcane magic and gained 2 MD")
 				else:
 					print("Not enough gold...")
 			else:
@@ -491,7 +496,7 @@ while run:
 		draw()
 
 		mixer.init()
-		mixer.music.load("music/intro.wav")
+		mixer.music.load("music/background.wav")
 		mixer.music.play(loops = -1, fade_ms=2)
 
 		if rules:
@@ -555,7 +560,6 @@ while run:
 					battle()
 
 		if play:
-
 			draw()
 			print("LOCATION: " + biom[map[y][x]]["t"])
 			draw()
