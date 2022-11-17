@@ -1,7 +1,6 @@
 #%%
 import numpy as np
 import matplotlib.pyplot as plt
-import sympy as sp
 
 # %%
 x = np.arange(-5,5,0.5)
@@ -12,7 +11,7 @@ X, Y = np.meshgrid(x,y)
 dy = -0.00001*X**3+ 0.0051*X**2-0.05*X
 dx = np.ones(dy.shape)
 
-plt.quiver(X,Y,dx,dy, color = 'purple')
+plt.streamplot(X,Y,dx,dy, color = 'purple')
 plt.show()
 # %%
 a = 0.00001
@@ -20,7 +19,7 @@ b = 0.0051
 c = 0.05
 
 def f(x):
-	y = (-1/4)*(a*x**4) + (1/3)*(b*x**3) - (1/2)*(c*x**2)
+	y = (-1/4)*(a*x**4) + (1/3)*(b*x**3) - (1/2)*(c*x**2) - 100
 	return y
 
 def derf(x):
@@ -54,5 +53,7 @@ plt.grid()
 plt.show()
 # %%
 print(f'Der er {f(45.816)} bjørne efter 45.816 år og væksthastigheden vil være {derf(45.816)}')
+
+# %%
 
 # %%
