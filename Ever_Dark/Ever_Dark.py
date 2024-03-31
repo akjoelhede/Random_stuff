@@ -355,9 +355,9 @@ def Rules_and_Mechanics():
 
 
 def introscene():
-	mixer.init()
-	mixer.music.load("Ever_Dark/music/background.wav")
-	mixer.music.play(loops = -1)
+#	mixer.init()
+#	mixer.music.load("Ever_Dark/music/background.wav")
+#	mixer.music.play(loops = -1)
 	directions = ["Town", "Marsch", "Shore", "Back"]
 	typewriter(["After days of wandering around the roads of Kalar'hyn with a feeling of something missing from your mind, you find yourself at a crossroads"], 0.1)
 	typewriter(["An old rotten sign roughly indicates where each path leads you"], 0.1)
@@ -389,9 +389,9 @@ def main_menu():
 	userinput = ""
 
 	while userinput not in actions:
-		mixer.init()
-		mixer.music.load("Ever_Dark/music/intro.wav")
-		mixer.music.play(loops = -1, fade_ms=2)
+#		mixer.init()
+#		mixer.music.load("Ever_Dark/music/intro.wav")
+#		mixer.music.play(loops = -1, fade_ms=2)
 
 		print(actions)
 		userinput = input()
